@@ -3,13 +3,30 @@ import { FlatList, StyleSheet, Text, TextInput } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LoadingSpinner from '../components/LoadingSpinner';
-import PostItem from '../components/PostItem';
+import UserCard from '../components/UserCard';
 
-type Post = {
+type User = {
   id: number;
-  title: string;
-  body: string;
-  userId: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
 };
 
 type SearchBarProps = {
@@ -44,22 +61,16 @@ const searchStyles = StyleSheet.create({
 });
 
 export default function Index() {
-  const [data, setData] = useState<Post[]>([]);
+  const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [searching, setSearching] = useState(false);
-
-  // SOLUTION Showing a single post per user
-  const uniqueUserPosts = data.filter(
-    (post, index, self) =>
-      self.findIndex((p) => p.userId === post.userId) === index
-  );
 
   // IMPORTANT creating the fetcher
   async function getData() {
     try {
       setIsLoading(true);
-      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts`);
+      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/users`);
       const json = await response.json();
       setData(json);
     } catch (error) {
@@ -78,7 +89,7 @@ export default function Index() {
     try {
       setSearching(true);
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/posts?userId=${userId}`
+        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${userId}`
       );
       const json = await response.json();
       setData(json);
@@ -119,10 +130,10 @@ export default function Index() {
         )}
         decelerationRate={'fast'}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => String(item.title)}
-        data={search ? data : uniqueUserPosts}
+        keyExtractor={(item) => String(item.id)}
+        data={data}
         renderItem={({ item }) => (
-          <PostItem title={item.title} body={item.body} id={item.userId} />
+          <UserCard name={item.name} email={item.email} id={item.id} />
         )}
       />
     </SafeAreaView>

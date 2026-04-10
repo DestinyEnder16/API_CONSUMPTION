@@ -2,12 +2,12 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 type PostItemProps = {
-  title: string;
-  body: string;
+  name: string;
+  email: string;
   id: number;
 };
 
-export default function PostItem({ title, body, id }: PostItemProps) {
+export default function UserCard({ name, email, id }: PostItemProps) {
   return (
     <Pressable
       onPress={() =>
@@ -20,8 +20,8 @@ export default function PostItem({ title, body, id }: PostItemProps) {
       }
       style={styles.container}
     >
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.body}>{body}</Text>
+      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.body}>{email}</Text>
     </Pressable>
   );
 }

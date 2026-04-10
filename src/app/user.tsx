@@ -3,13 +3,30 @@ import { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LoadingSpinner from '../components/LoadingSpinner';
-import PostCard from '../components/PostCard';
+import UserProfile from '../components/UserProfile';
 
 type responseData = {
-  userId: string;
   id: number;
-  title: string;
-  body: string;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
 };
 
 const userIdInfo: Record<string, string> = {
@@ -34,7 +51,7 @@ export default function User() {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/posts?userId=${id}`
+        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${id}`
       );
       const json = await response.json();
       setData(json);
@@ -59,15 +76,23 @@ export default function User() {
         style={{ paddingHorizontal: 20, paddingTop: 10 }}
         ListHeaderComponent={() => (
           <View>
-            <Text style={styles.header}>{userIdInfo[String(id)]}</Text>
+            <Text style={styles.header}>{data[0]?.name}</Text>
           </View>
         )}
         data={data}
         showsVerticalScrollIndicator={false}
         decelerationRate={'fast'}
-        keyExtractor={(item) => String(item.title)}
+        keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
-          <PostCard title={item.title} body={item.body} />
+          <UserProfile
+            name={item.name}
+            username={item.username}
+            email={item.email}
+            phone={item.phone}
+            website={item.website}
+            city={item.address.city}
+            companyName={item.company.name}
+          />
         )}
       />
     </SafeAreaView>
