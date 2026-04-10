@@ -38,7 +38,7 @@ function SearchBar({ value, onChangeText }: SearchBarProps) {
   return (
     <TextInput
       style={searchStyles.input}
-      placeholder="Search posts by ID"
+      placeholder="Search list by ID"
       placeholderTextColor="#888"
       value={value}
       onChangeText={onChangeText}
@@ -110,19 +110,24 @@ export default function Index() {
   }, []);
 
   return isLoading ? (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LoadingSpinner />
     </SafeAreaView>
   ) : (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        style={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingTop: 30, paddingBottom: 30 }}
         ListHeaderComponent={() => (
           <>
             <Text
-              style={{ fontSize: 32, textAlign: 'center', fontWeight: '600' }}
+              style={{
+                fontSize: 32,
+                textAlign: 'center',
+                fontWeight: '600',
+                marginBottom: 20,
+              }}
             >
-              Data
+              Company Employees
             </Text>
 
             <SearchBar value={search} onChangeText={handleSearchChange} />

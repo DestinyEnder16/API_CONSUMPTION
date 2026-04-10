@@ -29,19 +29,6 @@ type responseData = {
   };
 };
 
-const userIdInfo: Record<string, string> = {
-  '1': 'Destiny',
-  '2': 'Nifemi',
-  '3': 'James',
-  '4': 'John',
-  '5': 'Gabriel',
-  '6': 'Fame',
-  '7': 'Precious',
-  '8': 'Eric',
-  '9': 'Maureen',
-  '10': 'Grace',
-};
-
 export default function User() {
   const [data, setData] = useState<responseData[]>([]);
   const { id } = useLocalSearchParams();
@@ -67,13 +54,17 @@ export default function User() {
   }, [getData]);
 
   return isLoading ? (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LoadingSpinner />
     </SafeAreaView>
   ) : (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        style={{ paddingHorizontal: 20, paddingTop: 10 }}
+        contentContainerStyle={{
+          paddingHorizontal: 20,
+          paddingTop: 10,
+          paddingBottom: 30,
+        }}
         ListHeaderComponent={() => (
           <View>
             <Text style={styles.header}>{data[0]?.name}</Text>

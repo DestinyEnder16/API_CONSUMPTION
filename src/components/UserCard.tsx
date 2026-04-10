@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type PostItemProps = {
   name: string;
@@ -21,7 +21,11 @@ export default function UserCard({ name, email, id }: PostItemProps) {
       style={styles.container}
     >
       <Text style={styles.title}>{name}</Text>
-      <Text style={styles.body}>{email}</Text>
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.body}>{email}</Text>
+      </View>
     </Pressable>
   );
 }
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   title: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 6,
     color: '#333',
@@ -49,5 +53,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     lineHeight: 20,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
   },
 });
