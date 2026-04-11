@@ -1,36 +1,13 @@
-import { useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import LoadingSpinner from '../components/LoadingSpinner';
-import UserProfile from '../components/UserProfile';
-
-type responseData = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-};
+import { useLocalSearchParams } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LoadingSpinner from "../components/LoadingSpinner";
+import UserProfile from "../components/UserProfile";
+import { UserIdentification } from "@/types";
 
 export default function User() {
-  const [data, setData] = useState<responseData[]>([]);
+  const [data, setData] = useState<UserIdentification[]>([]);
   const { id } = useLocalSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +15,7 @@ export default function User() {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${id}`
+        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${id}`,
       );
       const json = await response.json();
       setData(json);
@@ -72,7 +49,7 @@ export default function User() {
         )}
         data={data}
         showsVerticalScrollIndicator={false}
-        decelerationRate={'fast'}
+        decelerationRate={"fast"}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <UserProfile
