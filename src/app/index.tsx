@@ -1,16 +1,44 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import SafeAreaComponent from "../components/SafeAreaComponent";
 import { router } from "expo-router";
+import { colors } from "../constants/themes";
+import {
+  borderRadius,
+  fonts,
+  fontSizes,
+  fontWeights,
+  spacing,
+} from "../constants/styles";
+import { BriefcaseIcon } from "../constants/icons";
 
 export default function Index() {
   return (
-    <SafeAreaComponent>
-      <View style={styles.container}>
-        <Pressable onPress={() => router.navigate("/home")} style={styles.btn}>
-          <Text style={styles.btnText}>Access Company Data</Text>
-        </Pressable>
-      </View>
-    </SafeAreaComponent>
+    <>
+      <ImageBackground source={require("@/assets/images/calm_blue.png")}>
+        <SafeAreaComponent useSafeArea={false}>
+          <View style={styles.container}>
+            <View>
+              <BriefcaseIcon />
+            </View>
+            <Text style={styles.header}>Welcome to Employee Directory.</Text>
+            <Text style={styles.txt}>Manage your workforce with ease.</Text>
+            <Pressable
+              onPress={() => router.navigate("/home")}
+              style={styles.btn}
+            >
+              <Text style={styles.btnText}>Access Company Data</Text>
+            </Pressable>
+          </View>
+        </SafeAreaComponent>
+      </ImageBackground>
+    </>
   );
 }
 
@@ -19,17 +47,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
+    paddingHorizontal: spacing.lg,
+    gap: spacing.lg,
+  },
+
+  txt: {
+    fontSize: fontSizes.lg,
+    fontWeight: fontWeights.medium,
+    color: colors.primary,
+    textAlign: "center",
+    fontFamily: fonts.regular,
+  },
+
+  header: {
+    fontSize: fontSizes.xl,
+    color: colors.primary,
+    textAlign: "center",
+    fontFamily: fonts.semibold,
   },
 
   btn: {
-    backgroundColor: "yellow",
-    color: "black",
-    padding: 12,
-    borderRadius: 12,
+    backgroundColor: colors.primary,
+    padding: spacing.lg,
+    borderRadius: borderRadius.md,
   },
 
   btnText: {
-    fontSize: 18,
-    fontWeight: 500,
+    fontSize: fontSizes.lg,
+    fontFamily: fonts.semibold,
+    color: colors.white,
   },
 });

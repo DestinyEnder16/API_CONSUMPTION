@@ -1,3 +1,11 @@
+export const fonts = {
+  thin: "Montserrat-Thin",
+  regular: "Montserrat-Regular",
+  medium: "Montserrat-Medium",
+  semibold: "Montserrat-SemiBold",
+  bold: "Montserrat-Bold",
+};
+
 export const fontSizes = {
   xs: 12,
   sm: 14,

@@ -1,14 +1,11 @@
+import { UserIdentification } from '@/types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Image } from 'expo-image';
 import { StyleSheet, Text, View } from 'react-native';
-
-type UserProfileProps = {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-  city: string;
-  companyName: string;
-};
+import { employeeData } from '../constants/data';
+import { images } from '../constants/images';
+import { borderRadius, fonts, fontSizes, spacing } from '../constants/styles';
+import { colors } from '../constants/themes';
 
 export default function UserProfile({
   name,
@@ -16,41 +13,86 @@ export default function UserProfile({
   email,
   phone,
   website,
-  city,
-  companyName,
-}: UserProfileProps) {
+  address,
+  company,
+  id,
+}: UserIdentification) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.body}>@{username}</Text>
-      <Text style={styles.body}>Email: {email}</Text>
-      <Text style={styles.body}>Phone: {phone}</Text>
-      <Text style={styles.body}>Website: {website}</Text>
-      <Text style={styles.body}>City: {city}</Text>
-      <Text style={styles.body}>Company: {companyName}</Text>
+      {images[id] && (
+        <Image cachePolicy={'disk'} source={images[id]} style={styles.img} />
+      )}
+      <Text style={styles.header}>{employeeData[id - 1].role}</Text>
+
+      <View style={styles.infoContainer}>
+        <View style={{ marginBottom: spacing.xl }}>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.body}>@{username}</Text>
+        </View>
+
+        <View style={styles.infoField}>
+          <Ionicons style={styles.icon} name="lock-closed-outline" />
+          <Text style={styles.body}>Employee ID: {id}</Text>
+        </View>
+
+        <View style={styles.infoField}>
+          <Ionicons style={styles.icon} name="mail-outline" />
+          <Text style={styles.body}>Email: {email}</Text>
+        </View>
+
+        <View style={styles.infoField}>
+          <Ionicons style={styles.icon} name="call-outline" />
+          <Text style={styles.body}>Phone: {phone}</Text>
+        </View>
+
+        <View style={styles.infoField}>
+          <Ionicons style={styles.icon} name="globe-outline" />
+          <Text style={styles.body}>Website: {website}</Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1a1a2e',
-    padding: 16,
+    paddingVertical: 16,
     marginVertical: 6,
     marginHorizontal: 12,
-    borderRadius: 12,
-    borderLeftWidth: 4,
-    borderLeftColor: '#e94560',
+  },
+  header: {
+    fontSize: fontSizes.heading,
+    fontFamily: fonts.bold,
+    textAlign: 'center',
+    marginBottom: spacing.md,
+  },
+  infoContainer: {
+    gap: 10,
+  },
+  img: {
+    width: 150,
+    borderRadius: borderRadius.full,
+    height: 150,
+    marginBottom: spacing.xxxl,
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#eee',
+    fontSize: fontSizes.xxl,
+    fontFamily: fonts.bold,
+    color: colors.accent,
   },
   body: {
-    fontSize: 14,
-    color: '#aaa',
+    fontFamily: fonts.medium,
+    color: colors.primaryDark,
     lineHeight: 21,
+    fontSize: fontSizes.lg,
+  },
+  icon: {
+    fontSize: 24,
+    color: colors.accentDark,
+  },
+  infoField: {
+    gap: 10,
+    marginBottom: spacing.xl,
   },
 });

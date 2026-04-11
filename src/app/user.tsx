@@ -1,10 +1,13 @@
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LoadingSpinner from "../components/LoadingSpinner";
 import UserProfile from "../components/UserProfile";
 import { UserIdentification } from "@/types";
+import { borderRadius, fonts, fontSizes } from "../constants/styles";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { colors } from "../constants/themes";
 
 export default function User() {
   const [data, setData] = useState<UserIdentification[]>([]);
@@ -43,9 +46,13 @@ export default function User() {
           paddingBottom: 30,
         }}
         ListHeaderComponent={() => (
-          <View>
-            <Text style={styles.header}>{data[0]?.name}</Text>
-          </View>
+          <Pressable onPress={() => router.back()} style={styles.btn}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={32}
+              style={styles.btnIcon}
+            />
+          </Pressable>
         )}
         data={data}
         showsVerticalScrollIndicator={false}
@@ -53,13 +60,14 @@ export default function User() {
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <UserProfile
+            id={item.id}
             name={item.name}
             username={item.username}
             email={item.email}
             phone={item.phone}
             website={item.website}
-            city={item.address.city}
-            companyName={item.company.name}
+            address={item.address}
+            company={item.company}
           />
         )}
       />
@@ -68,9 +76,14 @@ export default function User() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 32,
-    fontWeight: 500,
-    marginBottom: 30,
+  btnIcon: {
+    backgroundColor: colors.accentDark,
+    borderRadius: borderRadius.full,
+    padding: 5,
+  },
+  btn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
   },
 });

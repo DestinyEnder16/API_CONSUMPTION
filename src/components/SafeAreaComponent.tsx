@@ -2,10 +2,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 interface SafeAreaComponentProps {
   children: React.ReactNode;
+  useSafeArea?: boolean;
 }
 
 export default function SafeAreaComponent({
+  useSafeArea = true,
   children,
 }: SafeAreaComponentProps) {
-  return <SafeAreaView>{children}</SafeAreaView>;
+  return useSafeArea ? (
+    <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
+  ) : (
+    children
+  );
 }
