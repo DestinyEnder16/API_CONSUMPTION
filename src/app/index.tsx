@@ -1,27 +1,26 @@
+import { router } from 'expo-router';
 import {
   ImageBackground,
   Pressable,
-  StatusBar,
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import SafeAreaComponent from "../components/SafeAreaComponent";
-import { router } from "expo-router";
-import { colors } from "../constants/themes";
+} from 'react-native';
+import SafeAreaComponent from '../components/SafeAreaComponent';
+import { BriefcaseIcon } from '../constants/icons';
 import {
   borderRadius,
   fonts,
   fontSizes,
   fontWeights,
   spacing,
-} from "../constants/styles";
-import { BriefcaseIcon } from "../constants/icons";
+} from '../constants/styles';
+import { colors } from '../constants/themes';
 
 export default function Index() {
   return (
     <>
-      <ImageBackground source={require("@/assets/images/calm_blue.png")}>
+      <ImageBackground source={require('@/assets/images/calm_blue.png')}>
         <SafeAreaComponent useSafeArea={false}>
           <View style={styles.container}>
             <View>
@@ -30,7 +29,7 @@ export default function Index() {
             <Text style={styles.header}>Welcome to Employee Directory.</Text>
             <Text style={styles.txt}>Manage your workforce with ease.</Text>
             <Pressable
-              onPress={() => router.navigate("/home")}
+              onPress={() => router.navigate('/home')}
               style={styles.btn}
             >
               <Text style={styles.btnText}>Access Company Data</Text>
@@ -44,9 +43,9 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
     paddingHorizontal: spacing.lg,
     gap: spacing.lg,
   },
@@ -55,14 +54,14 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.lg,
     fontWeight: fontWeights.medium,
     color: colors.primary,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: fonts.regular,
   },
 
   header: {
     fontSize: fontSizes.xl,
     color: colors.primary,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: fonts.semibold,
   },
 

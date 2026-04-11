@@ -1,13 +1,13 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import LoadingSpinner from "../components/LoadingSpinner";
-import UserProfile from "../components/UserProfile";
-import { UserIdentification } from "@/types";
-import { borderRadius, fonts, fontSizes } from "../constants/styles";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { colors } from "../constants/themes";
+import { UserIdentification } from '@/types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { FlatList, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import LoadingSpinner from '../components/LoadingSpinner';
+import UserProfile from '../components/UserProfile';
+import { borderRadius } from '../constants/styles';
+import { colors } from '../constants/themes';
 
 export default function User() {
   const [data, setData] = useState<UserIdentification[]>([]);
@@ -18,7 +18,7 @@ export default function User() {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${id}`,
+        `${process.env.EXPO_PUBLIC_API_URL}/users?id=${id}`
       );
       const json = await response.json();
       setData(json);
@@ -56,7 +56,7 @@ export default function User() {
         )}
         data={data}
         showsVerticalScrollIndicator={false}
-        decelerationRate={"fast"}
+        decelerationRate={'fast'}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <UserProfile
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   btn: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 10,
   },
 });

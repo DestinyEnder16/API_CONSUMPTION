@@ -1,23 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 
-import { SafeAreaView } from "react-native-safe-area-context";
-import LoadingSpinner from "../components/LoadingSpinner";
-import UserCard from "../components/UserCard";
-import { UserIdentification } from "@/types";
-import SafeAreaComponent from "../components/SafeAreaComponent";
-import SearchBar from "../components/SearchBar";
-
-type SearchBarProps = {
-  value: string;
-  onChangeText: (text: string) => void;
-};
+import { UserIdentification } from '@/types';
+import LoadingSpinner from '../components/LoadingSpinner';
+import SafeAreaComponent from '../components/SafeAreaComponent';
+import SearchBar from '../components/SearchBar';
+import UserCard from '../components/UserCard';
 
 export default function Home() {
   const [data, setData] = useState<UserIdentification[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
 
   // IMPORTANT creating the fetcher
   async function getData() {
@@ -46,13 +40,13 @@ export default function Home() {
             <>
               <Ionicons
                 name="person-circle"
-                style={{ alignSelf: "flex-end" }}
+                style={{ alignSelf: 'flex-end' }}
                 size={48}
               />
               <SearchBar value={searchInput} onChangeText={setSearchInput} />
             </>
           )}
-          decelerationRate={"fast"}
+          decelerationRate={'fast'}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => String(item.id)}
           data={data}
