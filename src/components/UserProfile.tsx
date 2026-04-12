@@ -17,10 +17,16 @@ export default function UserProfile({
   company,
   id,
 }: UserIdentification) {
+  const blurhash = 'L6PZfSi_.AyE_3t7t7R**0o#DgR4';
   return (
     <View style={styles.container}>
       {images[id] && (
-        <Image cachePolicy={'disk'} source={images[id]} style={styles.img} />
+        <Image
+          cachePolicy={'disk'}
+          source={images[id]}
+          style={styles.img}
+          placeholder={{ blurhash }}
+        />
       )}
       <Text style={styles.header}>{employeeData[id - 1].role}</Text>
 

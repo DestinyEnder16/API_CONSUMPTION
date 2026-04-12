@@ -1,6 +1,6 @@
-import { StyleSheet, TextInput } from "react-native";
-import { colors } from "../constants/themes";
-import { borderRadius, fonts, fontSizes, spacing } from "../constants/styles";
+import { StyleSheet, TextInput } from 'react-native';
+import { borderRadius, fonts, fontSizes, spacing } from '../constants/styles';
+import { colors } from '../constants/themes';
 
 interface SearchProps {
   onChangeText: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +15,6 @@ export default function SearchBar({ value, onChangeText }: SearchProps) {
       placeholderTextColor={colors.textMuted}
       value={value}
       onChangeText={(e) => onChangeText(e)}
-      keyboardType="numeric"
       returnKeyType="search"
     />
   );

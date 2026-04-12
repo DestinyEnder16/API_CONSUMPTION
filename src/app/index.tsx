@@ -26,6 +26,7 @@ export default function Index() {
             <View>
               <BriefcaseIcon />
             </View>
+
             <Text style={styles.header}>Welcome to Employee Directory.</Text>
             <Text style={styles.txt}>Manage your workforce with ease.</Text>
             <Pressable
@@ -34,6 +35,13 @@ export default function Index() {
             >
               <Text style={styles.btnText}>Access Company Data</Text>
             </Pressable>
+            <View style={{ position: 'absolute', bottom: 20 }}>
+              <Text
+                style={{ color: colors.textPrimary, fontFamily: fonts.medium }}
+              >
+                For admin uses only.
+              </Text>
+            </View>
           </View>
         </SafeAreaComponent>
       </ImageBackground>
