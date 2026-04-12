@@ -1,13 +1,12 @@
 import { UserIdentification } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BackBtn from '../components/BackBtn';
 import ErrorScreen from '../components/errorScreen';
 import LoadingSpinner from '../components/LoadingSpinner';
 import UserProfile from '../components/UserProfile';
-import { borderRadius } from '../constants/styles';
 import { colors } from '../constants/themes';
 import { getUsersInfo } from '../services/getUsersInfo';
 
@@ -70,16 +69,3 @@ export default function User() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  btnIcon: {
-    backgroundColor: colors.accentDark,
-    borderRadius: borderRadius.full,
-    padding: 5,
-  },
-  btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-});
