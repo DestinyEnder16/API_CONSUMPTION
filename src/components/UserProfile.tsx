@@ -1,11 +1,11 @@
-import { UserIdentification } from '@/types';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { Image } from 'expo-image';
-import { StyleSheet, Text, View } from 'react-native';
-import { employeeData } from '../constants/data';
-import { images } from '../constants/images';
-import { borderRadius, fonts, fontSizes, spacing } from '../constants/styles';
-import { colors } from '../constants/themes';
+import { UserIdentification } from "@/types";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image } from "expo-image";
+import { StyleSheet, Text, View } from "react-native";
+import { employeeData } from "../constants/data";
+import { images } from "../constants/images";
+import { borderRadius, fonts, fontSizes, spacing } from "../constants/styles";
+import { colors } from "../constants/themes";
 
 export default function UserProfile({
   name,
@@ -13,19 +13,18 @@ export default function UserProfile({
   email,
   phone,
   website,
-  address,
-  company,
   id,
 }: UserIdentification) {
-  const blurhash = 'L6PZfSi_.AyE_3t7t7R**0o#DgR4';
+  const blurhash = "L6PZfSi_.AyE_3t7t7R**0o#DgR4";
   return (
     <View style={styles.container}>
       {images[id] && (
         <Image
-          cachePolicy={'disk'}
+          cachePolicy={"disk"}
           source={images[id]}
           style={styles.img}
           placeholder={{ blurhash }}
+          transition={1000}
         />
       )}
       <Text style={styles.header}>{employeeData[id - 1].role}</Text>
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: fontSizes.heading,
     fontFamily: fonts.bold,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: spacing.md,
   },
   infoContainer: {
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: borderRadius.full,
     height: 150,
     marginBottom: spacing.xxxl,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   title: {
     fontSize: fontSizes.xxl,
