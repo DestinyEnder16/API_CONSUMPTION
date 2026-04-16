@@ -19,33 +19,31 @@ import { colors } from '../constants/themes';
 
 export default function Index() {
   return (
-    <>
-      <ImageBackground source={require('@/assets/images/calm_blue.png')}>
-        <SafeAreaComponent useSafeArea={false}>
-          <View style={styles.container}>
-            <View>
-              <BriefcaseIcon />
-            </View>
-
-            <Text style={styles.header}>Welcome to Employee Directory.</Text>
-            <Text style={styles.txt}>Manage your workforce with ease.</Text>
-            <Pressable
-              onPress={() => router.navigate('/home')}
-              style={styles.btn}
-            >
-              <Text style={styles.btnText}>Access Company Data</Text>
-            </Pressable>
-            <View style={{ position: 'absolute', bottom: 20 }}>
-              <Text
-                style={{ color: colors.textPrimary, fontFamily: fonts.medium }}
-              >
-                For admin uses only.
-              </Text>
-            </View>
+    <ImageBackground source={require('@/assets/images/calm_blue.png')}>
+      <SafeAreaComponent useSafeArea={false}>
+        <View style={styles.container}>
+          <View>
+            <BriefcaseIcon />
           </View>
-        </SafeAreaComponent>
-      </ImageBackground>
-    </>
+
+          <Text style={styles.header}>Welcome to Employee Directory.</Text>
+          <Text style={styles.txt}>Manage your workforce with ease.</Text>
+          <Pressable
+            onPress={() => router.navigate('/home')}
+            style={styles.btn}
+          >
+            <Text style={styles.btnText}>Access Company Data</Text>
+          </Pressable>
+          <View style={{ position: 'absolute', bottom: 20 }}>
+            <Text
+              style={{ color: colors.textPrimary, fontFamily: fonts.medium }}
+            >
+              For admin uses only.
+            </Text>
+          </View>
+        </View>
+      </SafeAreaComponent>
+    </ImageBackground>
   );
 }
 

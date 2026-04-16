@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 
-import { UserIdentification } from '@/types';
+import { useQuery } from '@tanstack/react-query';
 import BackBtn from '../components/BackBtn';
 import ErrorScreen from '../components/errorScreen';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -14,31 +14,19 @@ import { colors } from '../constants/themes';
 import { getUsersInfo } from '../services/getUsersInfo';
 
 export default function Home() {
-  const [data, setData] = useState<UserIdentification[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [searchInput, setSearchInput] = useState('');
 
-  // IMPORTANT creating the fetcher
-  async function getData() {
-    try {
-      setIsLoading(true);
-      const json = await getUsersInfo();
-      setData(json);
-    } catch (error) {
-      console.log(error);
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  // NOTE: Accessing the query client
+  // const queryClient = useQueryClient();
 
-  useEffect(function () {
-    getData();
-  }, []);
+  // creating the queries
+  const { isError, isLoading, data } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => getUsersInfo(),
+  });
 
   const filteredData =
-    searchInput.length > 0
+    searchInput.length > 0 && data
       ? data.filter((datum) =>
           datum.name.toLowerCase().includes(searchInput.toLowerCase())
         )
@@ -63,7 +51,7 @@ export default function Home() {
     <ErrorScreen message={'Employee directory could not be loaded'} />
   ) : isLoading ? (
     <LoadingSpinner />
-  ) : filteredData.length > 0 ? (
+  ) : filteredData && filteredData.length > 0 ? (
     <SafeAreaComponent>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
@@ -76,7 +64,6 @@ export default function Home() {
           renderItem={({ item }) => (
             <UserCard name={item.name} email={item.email} id={item.id} />
           )}
-          ListEmptyComponent={() => <LoadingSpinner />}
         />
       </View>
     </SafeAreaComponent>

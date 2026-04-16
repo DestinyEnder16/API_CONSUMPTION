@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -27,12 +28,16 @@ export default function RootLayout() {
     return null;
   }
 
+  const queryClient = new QueryClient();
+
   return (
-    <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false, statusBarStyle: 'dark' }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="user" />
-      </Stack>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
+        <Stack screenOptions={{ headerShown: false, statusBarStyle: 'dark' }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="user" />
+        </Stack>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
 }
