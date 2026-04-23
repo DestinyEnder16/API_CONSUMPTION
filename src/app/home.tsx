@@ -1,34 +1,35 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useState } from "react";
+import { FlatList, View } from "react-native";
 
-import { useQuery } from '@tanstack/react-query';
-import BackBtn from '../components/BackBtn';
-import ErrorScreen from '../components/errorScreen';
-import LoadingSpinner from '../components/LoadingSpinner';
-import SafeAreaComponent from '../components/SafeAreaComponent';
-import SearchBar from '../components/SearchBar';
-import UserCard from '../components/UserCard';
-import { spacing } from '../constants/styles';
-import { colors } from '../constants/themes';
-import { getUsersInfo } from '../services/getUsersInfo';
+import { useQuery } from "@tanstack/react-query";
+import BackBtn from "../components/BackBtn";
+import ErrorScreen from "../components/errorScreen";
+import LoadingSpinner from "../components/LoadingSpinner";
+import SafeAreaComponent from "../components/SafeAreaComponent";
+import SearchBar from "../components/SearchBar";
+import UserCard from "../components/UserCard";
+import { spacing } from "../constants/styles";
+import { colors } from "../constants/themes";
+import { getUsersInfo } from "../services/getUsersInfo";
 
 export default function Home() {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   // NOTE: Accessing the query client
+  //
   // const queryClient = useQueryClient();
 
   // creating the queries
   const { isError, isLoading, data } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: () => getUsersInfo(),
   });
 
   const filteredData =
     searchInput.length > 0 && data
       ? data.filter((datum) =>
-          datum.name.toLowerCase().includes(searchInput.toLowerCase())
+          datum.name.toLowerCase().includes(searchInput.toLowerCase()),
         )
       : data;
 
@@ -36,8 +37,8 @@ export default function Home() {
     <>
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
+          flexDirection: "row",
+          justifyContent: "space-between",
           marginBottom: spacing.md,
         }}
       >
@@ -48,7 +49,7 @@ export default function Home() {
     </>
   );
   return isError ? (
-    <ErrorScreen message={'Employee directory could not be loaded'} />
+    <ErrorScreen message={"Employee directory could not be loaded"} />
   ) : isLoading ? (
     <LoadingSpinner />
   ) : filteredData && filteredData.length > 0 ? (
@@ -57,7 +58,7 @@ export default function Home() {
         <FlatList
           contentContainerStyle={{ paddingVertical: 30, paddingHorizontal: 24 }}
           ListHeaderComponent={HomeHeader}
-          decelerationRate={'fast'}
+          decelerationRate={"fast"}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => String(item.id)}
           data={filteredData}
