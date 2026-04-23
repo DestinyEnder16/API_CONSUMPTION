@@ -1,21 +1,19 @@
-import { UserIdentification } from "@/types";
-import { useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import BackBtn from "../components/BackBtn";
-import ErrorScreen from "../components/errorScreen";
-import LoadingSpinner from "../components/LoadingSpinner";
-import UserProfile from "../components/UserProfile";
-import { colors } from "../constants/themes";
-import { getUsersInfo } from "../services/getUsersInfo";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import BackBtn from '../components/BackBtn';
+import ErrorScreen from '../components/errorScreen';
+import LoadingSpinner from '../components/LoadingSpinner';
+import UserProfile from '../components/UserProfile';
+import { colors } from '../constants/themes';
+import { getUsersInfo } from '../services/getUsersInfo';
 
 export default function User() {
   const { id } = useLocalSearchParams();
 
   const { isError, isLoading, data } = useQuery({
-    queryKey: ["user", id],
+    queryKey: ['user', id],
     queryFn: () => getUsersInfo(Number(id)),
   });
 
@@ -36,7 +34,7 @@ export default function User() {
         ListHeaderComponent={() => <BackBtn />}
         data={data}
         showsVerticalScrollIndicator={false}
-        decelerationRate={"fast"}
+        decelerationRate={'fast'}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <UserProfile
