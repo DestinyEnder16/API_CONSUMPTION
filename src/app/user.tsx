@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import { FlatList } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackBtn from "../components/BackBtn";
 import ErrorScreen from "../components/errorScreen";
@@ -21,19 +21,17 @@ export default function User() {
     <ErrorScreen message="Employee not found" />
   ) : (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <FlatList
+      <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
           paddingTop: 10,
           paddingBottom: 30,
         }}
-        ListHeaderComponent={() => <BackBtn />}
-        data={data}
         showsVerticalScrollIndicator={false}
-        decelerationRate={"fast"}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <UserProfile item={item} />}
-      />
+      >
+        <BackBtn />
+        {data && <UserProfile item={data[0]} />}
+      </ScrollView>
     </SafeAreaView>
   );
 }

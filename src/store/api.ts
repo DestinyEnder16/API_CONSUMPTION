@@ -10,7 +10,7 @@ export const api = createApi({
       query: () => "/users",
     }),
     // builder.query<ResultType, ArgType>
-    getUserById: builder.query<UserIdentification, number>({
+    getUserById: builder.query<UserIdentification[], number>({
       query: (id) => `/users/?id=${id}`,
     }),
   }),
