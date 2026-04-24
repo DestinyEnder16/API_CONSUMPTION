@@ -1,7 +1,8 @@
-import { UserIdentification } from '@/types';
-import axios from 'axios';
-
 // since the function is marked as async, it returns a Promise - so the return type must be wrapped in Promise<...>
+
+import axios from 'axios';
+import { UserIdentification } from '@/types';
+
 export async function getUsersInfo(id?: number): Promise<UserIdentification[]> {
   const url = id
     ? `${process.env.EXPO_PUBLIC_API_URL}/users/?id=${id}`

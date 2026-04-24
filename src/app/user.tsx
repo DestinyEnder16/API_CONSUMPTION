@@ -1,21 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { useLocalSearchParams } from 'expo-router';
-import { FlatList } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import BackBtn from '../components/BackBtn';
-import ErrorScreen from '../components/errorScreen';
-import LoadingSpinner from '../components/LoadingSpinner';
-import UserProfile from '../components/UserProfile';
-import { colors } from '../constants/themes';
-import { getUsersInfo } from '../services/getUsersInfo';
+import { useLocalSearchParams } from "expo-router";
+import { FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import BackBtn from "../components/BackBtn";
+import ErrorScreen from "../components/errorScreen";
+import LoadingSpinner from "../components/LoadingSpinner";
+import UserProfile from "../components/UserProfile";
+import { colors } from "../constants/themes";
+import { useGetUserByIdQuery } from "../store/api";
 
 export default function User() {
   const { id } = useLocalSearchParams();
 
-  const { isError, isLoading, data } = useQuery({
-    queryKey: ['user', id],
-    queryFn: () => getUsersInfo(Number(id)),
-  });
+  const { isError, isLoading, data } = useGetUserByIdQuery(Number(id));
 
   return isLoading ? (
     <SafeAreaView style={{ flex: 1 }}>
@@ -34,20 +30,9 @@ export default function User() {
         ListHeaderComponent={() => <BackBtn />}
         data={data}
         showsVerticalScrollIndicator={false}
-        decelerationRate={'fast'}
+        decelerationRate={"fast"}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <UserProfile
-            id={item.id}
-            name={item.name}
-            username={item.username}
-            email={item.email}
-            phone={item.phone}
-            website={item.website}
-            address={item.address}
-            company={item.company}
-          />
-        )}
+        renderItem={({ item }) => <UserProfile item={item} />}
       />
     </SafeAreaView>
   );

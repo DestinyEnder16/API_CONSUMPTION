@@ -1,10 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,16 +29,14 @@ export default function RootLayout() {
     return null;
   }
 
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
       <SafeAreaProvider>
         <Stack screenOptions={{ headerShown: false, statusBarStyle: 'dark' }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="user" />
         </Stack>
       </SafeAreaProvider>
-    </QueryClientProvider>
+    </Provider>
   );
 }
